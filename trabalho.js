@@ -189,3 +189,14 @@ if (relacionamentos.length === 0) {
         console.log(caminho.join(' -> '));
     });
 }
+
+
+// HTML
+// let btnBuscar = document.getElementById('btnBuscar');
+// let atorField = document.getElementById('atorField');
+// let title = document.getElementById('title');
+
+// btnBuscar.onclick = function() {
+//     atorField.style.maxHeight = "0px";
+//     title.innerHTML = "Sign In";
+// }

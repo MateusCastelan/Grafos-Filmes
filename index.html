@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <!-- <script src="trabalho.js" defer></script> -->
+  <title>6 Graus de Network</title>
+</head>
+<body>
+  <div class="container">
+    <div class="form-box" id="formBox">
+      <h1 id="title">6 Graus de Network</h1>
+      <form>
+        <div class="input-group" id="inputGroup">
+          <div class="input-field" id="atorField">
+            <input type="text" placeholder="Ator Origem">
+          </div>
+
+          <div class="input-field" id="atorField2">
+            <input type="text" placeholder="Ator Destino">
+          </div>
+
+          <div class="input-field" id="caminho">
+            <label for="">Caminho Minimo Origem/Destino</label>
+            <p></p>
+            <!-- <input type="text" value=""> -->
+          </div>
+
+          <div class="input-field" id="comprimento">
+            <label for="">Comprimento</label>
+            <p></p>
+            <!-- <input type="text" value=""> -->
+          </div>
+
+        </div>
+        <div class="btn-field">
+          <button type="button" id="btnBuscar">Buscar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script src="trabalho.js" defer></script>
+  <!-- <script src="trabalho.js" defer></script> -->
+  <script>
+    let title = document.getElementById('title');
+    let formBox = document.getElementById('formBox');
+    let inputGroup = document.getElementById('inputGroup');
+    let atorField = document.getElementById('atorField');
+    let atorField2 = document.getElementById('atorField2');
+    let caminho = document.getElementById('caminho');
+    let comprimento = document.getElementById('comprimento');
+    let btnBuscar = document.getElementById('btnBuscar');
+
+    btnBuscar. onclick = function() {
+      title.innerHTML = "Resultado";
+      formBox.style.height = "60%"
+      caminho.style.opacity = "1"
+      comprimento.style.opacity = "1"
+      inputGroup.style.height = "300px"
+      btnBuscar.style.marginTop = "15px"
+  }
+  </script>
+</body>
+
+</html>
