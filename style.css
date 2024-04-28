@@ -25,6 +25,8 @@
   background: #FFF;
   padding: 50px 60px 70px;
   text-align: center;
+  transition: height 1s;
+  transition: max-width 1s;
 }
 
 .form-box h1 {
@@ -36,7 +38,7 @@
 
 .form-box h1::after {
   content: '';
-  width: 80%;
+  width: 90%;
   height: 4px;
   border-radius: 3px;
   background: #3C00A0;
@@ -89,7 +91,7 @@ input {
   padding: 18px 15px;
 }
 
-#caminho, #comprimento {
+#caminho, #comprimento, #relacionamentos {
   opacity: 0;
   transition: opacity 2s;
 }
