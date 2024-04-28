@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-  <!-- <script src="trabalho.js" defer></script> -->
+  <!-- <script src="trabalho.js" async></script> -->
   <title>6 Graus de Network</title>
 </head>
 <body>
@@ -33,6 +33,12 @@
             <!-- <input type="text" value=""> -->
           </div>
 
+          <div class="input-field" id="relacionamentos">
+            <label for="">Relacionamentos Próximos</label>
+            <p></p>
+            <!-- <input type="text" value=""> -->
+          </div>
+
         </div>
         <div class="btn-field">
           <button type="button" id="btnBuscar">Buscar</button>
@@ -40,7 +46,6 @@
       </form>
     </div>
   </div>
-  <script src="trabalho.js" defer></script>
   <!-- <script src="trabalho.js" defer></script> -->
   <script>
     let title = document.getElementById('title');
@@ -50,14 +55,17 @@
     let atorField2 = document.getElementById('atorField2');
     let caminho = document.getElementById('caminho');
     let comprimento = document.getElementById('comprimento');
+    let relacionamentos = document.getElementById('relacionamentos');
     let btnBuscar = document.getElementById('btnBuscar');
 
     btnBuscar. onclick = function() {
       title.innerHTML = "Resultado";
-      formBox.style.height = "60%"
+      formBox.style.height = "70%"
+      formBox.style.maxWidth = "600px"
       caminho.style.opacity = "1"
       comprimento.style.opacity = "1"
-      inputGroup.style.height = "300px"
+      relacionamentos.style.opacity = "1"
+      inputGroup.style.height = "400px"
       btnBuscar.style.marginTop = "15px"
   }
   </script>

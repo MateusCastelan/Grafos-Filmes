@@ -192,11 +192,18 @@ if (relacionamentos.length === 0) {
 
 
 // HTML
-// let btnBuscar = document.getElementById('btnBuscar');
-// let atorField = document.getElementById('atorField');
 // let title = document.getElementById('title');
+// let formBox = document.getElementById('formBox');
+// let inputGroup = document.getElementById('inputGroup');
+// let caminho = document.getElementById('caminho');
+// let comprimento = document.getElementById('comprimento');
+// let btnBuscar = document.getElementById('btnBuscar');
 
 // btnBuscar.onclick = function() {
-//     atorField.style.maxHeight = "0px";
-//     title.innerHTML = "Sign In";
+//     title.innerHTML = "Resultado";
+//     formBox.style.height = "60%"
+//     caminho.style.opacity = "1"
+//     comprimento.style.opacity = "1"
+//     inputGroup.style.height = "300px"
+//     btnBuscar.style.marginTop = "15px"
 // }
