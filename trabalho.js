@@ -162,9 +162,9 @@ async function buscarAtores() {
   // Obter referências aos elementos HTML
   let atorOrigemInput = document.querySelector("#atorOrigem");
   let atorDestinoInput = document.querySelector("#atorDestino");
-  let caminhoP = document.querySelector("#caminho p");
-  let comprimentoP = document.querySelector("#comprimento p");
-  let relacionamentosP = document.querySelector("#relacionamentos p");
+  let caminhoP = document.querySelector("#caminho textarea");
+  let comprimentoP = document.querySelector("#comprimento textarea");
+  let relacionamentosP = document.querySelector("#relacionamentos textarea");
 
   // Obter os nomes dos atores de origem e destino
   let origem = atorOrigemInput.value;
