@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-  <!-- <script src="trabalho.js" async></script> -->
   <title>6 Graus de Network</title>
 </head>
 <body>
@@ -14,29 +13,26 @@
       <form>
         <div class="input-group" id="inputGroup">
           <div class="input-field" id="atorField">
-            <input type="text" placeholder="Ator Origem">
+            <input type="text" id="atorOrigem" placeholder="Ator Origem">
           </div>
 
           <div class="input-field" id="atorField2">
-            <input type="text" placeholder="Ator Destino">
+            <input type="text" id="atorDestino" placeholder="Ator Destino">
           </div>
 
           <div class="input-field" id="caminho">
-            <label for="">Caminho Minimo Origem/Destino</label>
+            <label for="">Caminho Mínimo Origem/Destino</label>
             <p></p>
-            <!-- <input type="text" value=""> -->
           </div>
 
           <div class="input-field" id="comprimento">
             <label for="">Comprimento</label>
             <p></p>
-            <!-- <input type="text" value=""> -->
           </div>
 
           <div class="input-field" id="relacionamentos">
             <label for="">Relacionamentos Próximos</label>
-            <p></p>
-            <!-- <input type="text" value=""> -->
+            <p id="relacionamentosBox"></p>
           </div>
 
         </div>
@@ -46,29 +42,7 @@
       </form>
     </div>
   </div>
-  <!-- <script src="trabalho.js" defer></script> -->
-  <script>
-    let title = document.getElementById('title');
-    let formBox = document.getElementById('formBox');
-    let inputGroup = document.getElementById('inputGroup');
-    let atorField = document.getElementById('atorField');
-    let atorField2 = document.getElementById('atorField2');
-    let caminho = document.getElementById('caminho');
-    let comprimento = document.getElementById('comprimento');
-    let relacionamentos = document.getElementById('relacionamentos');
-    let btnBuscar = document.getElementById('btnBuscar');
 
-    btnBuscar. onclick = function() {
-      title.innerHTML = "Resultado";
-      formBox.style.height = "70%"
-      formBox.style.maxWidth = "600px"
-      caminho.style.opacity = "1"
-      comprimento.style.opacity = "1"
-      relacionamentos.style.opacity = "1"
-      inputGroup.style.height = "400px"
-      btnBuscar.style.marginTop = "15px"
-  }
-  </script>
+  <script src="trabalho.js" async></script>
 </body>
-
 </html>
