@@ -136,7 +136,7 @@ class Grafo {
 }
 
 // Função para popular o grafo a partir de dados em formato JSON.
-function popularGrafoDeJSON(dados) {
+function popularGrafo(dados) {
   const grafo = new Grafo();
 
   // Iteramos sobre cada filme no JSON.
@@ -162,9 +162,9 @@ async function buscarAtores() {
   // Obter referências aos elementos HTML
   let atorOrigemInput = document.querySelector("#atorOrigem");
   let atorDestinoInput = document.querySelector("#atorDestino");
-  let caminhoP = document.querySelector("#caminho textarea");
-  let comprimentoP = document.querySelector("#comprimento textarea");
-  let relacionamentosP = document.querySelector("#relacionamentos textarea");
+  let caminhoP = document.querySelector("#caminho p");
+  let comprimentoP = document.querySelector("#comprimento p");
+  let relacionamentosP = document.querySelector("#relacionamentos p");
 
   // Obter os nomes dos atores de origem e destino
   let origem = atorOrigemInput.value;
@@ -182,7 +182,7 @@ async function buscarAtores() {
     const dadosJSON = await resposta.json();
 
     // Popular o grafo com os dados JSON
-    const grafoFilmes = popularGrafoDeJSON(dadosJSON);
+    const grafoFilmes = popularGrafo(dadosJSON);
 
     // Encontrar o caminho mínimo entre os atores de origem e destino
     const resultadoCaminho = grafoFilmes.encontrarCaminhoMinimo(
@@ -205,14 +205,14 @@ async function buscarAtores() {
       destino
     );
     if (relacionamentos.length === 0) {
-      relacionamentosP.textContent = `Não foram encontrados relacionamentos próximos entre ${origem} e ${destino} com um comprimento máximo de 6 arestas.`;
+      relacionamentosP.innerHTML = `<br> Não foram encontrados relacionamentos próximos entre ${origem} e ${destino} com um comprimento máximo de 6 arestas.`;
     } else {
       let relacionamentosTexto =
-        origem + " e " + destino + " com um comprimento máximo de 6 arestas:\n";
+        origem + " e " + destino + " com um comprimento máximo de 6 arestas:<br><br>";
       relacionamentos.forEach((caminho) => {
-        relacionamentosTexto += "\n" + caminho.join(" -> ");
+        relacionamentosTexto += caminho.join(" -> ") + "<br><br>";
       });
-      relacionamentosP.textContent = relacionamentosTexto;
+      relacionamentosP.innerHTML = relacionamentosTexto;
     }
   } catch (erro) {
     console.error("Erro ao obter os dados JSON:", erro);
@@ -255,7 +255,7 @@ btnBuscar.onclick = function () {
   comprimento.style.display = "block";
   relacionamentos.style.opacity = "1";
   relacionamentos.style.display = "block";
-  relacionamentosBox.style.height = "150px";
+  relacionamentosBox.style.height = "250px";
   inputGroup.style.height = "550px";
   btnBuscar.style.marginTop = "15px";
 };
