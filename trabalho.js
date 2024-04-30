@@ -76,12 +76,57 @@ class Grafo {
   }
 
   encontrarCaminhoMinimo(origem, destino) {
-    const caminho = this.bfs(origem, destino);
-    if (caminho) {
-      const comprimento = caminho.length;
-      return { caminho, comprimento };
+    // Estrutura para armazenar o menor caminho encontrado.
+    let menorCaminho = null;
+    // Estrutura para armazenar o comprimento do menor caminho.
+    let menorComprimento = Infinity;
+    // Estrutura para armazenar os vértices visitados.
+    const visitados = new Set();
+    // Estrutura de fila para o algoritmo BFS.
+    const fila = [[origem]];
+
+    // Verifica se o vértice de origem existe no grafo.
+    if (!this.listaAdj.has(origem)) {
+      console.log(`O vértice ${origem} não existe no grafo.`);
+      return null;
     }
-    return null;
+
+    // Enquanto houver vértices na fila.
+    while (fila.length) {
+      // Remove o primeiro caminho da fila.
+      const caminhoAtual = fila.shift();
+      // Pega o último vértice do caminho atual.
+      const verticeAtual = caminhoAtual[caminhoAtual.length - 1];
+
+      // Se o vértice atual for o destino e o comprimento do caminho atual for menor que o menor comprimento encontrado até agora.
+      if (verticeAtual === destino && caminhoAtual.length < menorComprimento) {
+        menorCaminho = caminhoAtual; // Armazena o menor caminho.
+        menorComprimento = caminhoAtual.length; // Atualiza o menor comprimento.
+      }
+
+      // Se o vértice atual não foi visitado.
+      if (!visitados.has(verticeAtual)) {
+        // Marca o vértice como visitado.
+        visitados.add(verticeAtual);
+
+        // Para cada vértice adjacente ao vértice atual.
+        for (const adjacente of this.listaAdj.get(verticeAtual)) {
+          // Cria um novo caminho adicionando o vértice adjacente ao caminho atual.
+          const novoCaminho = [...caminhoAtual, adjacente];
+          // Adiciona o novo caminho à fila.
+          fila.push(novoCaminho);
+        }
+      }
+    }
+
+    // Se um menor caminho foi encontrado, retorna o caminho e seu comprimento.
+    if (menorCaminho) {
+      return { caminho: menorCaminho, comprimento: menorComprimento };
+    } else {
+      // Se não houver caminho entre a origem e o destino.
+      console.log(`Não há um caminho entre ${origem} e ${destino}.`);
+      return null;
+    }
   }
 
   encontrarRelacionamentosProximos(origem, destino, comprimentoMaximo = Infinity) {
