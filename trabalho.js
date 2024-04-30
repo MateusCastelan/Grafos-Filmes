@@ -8,6 +8,7 @@ class Grafo {
       this.listaAdj.set(vertice, []);
     }
   }
+
   adicionarAresta(vertice1, vertice2) {
     this.listaAdj.get(vertice1).push(vertice2);
     this.listaAdj.get(vertice2).push(vertice1);
@@ -82,6 +83,7 @@ class Grafo {
         relacionamentosProximos.push(caminhoAtual);
         continue;
       }
+
       if (!visitados.has(verticeAtual)) {
         visitados.add(verticeAtual);
 
@@ -104,6 +106,7 @@ function popularGrafo(dados) {
     grafo.adicionarVertice(tituloFilme);
 
     filme.cast.forEach((ator) => {
+      grafo.adicionarVertice(ator);
       grafo.adicionarAresta(tituloFilme, ator);
     });
   });
@@ -145,6 +148,7 @@ async function buscarAtores() {
       caminhoP.textContent = `Não foi encontrado um caminho entre ${origem} e ${destino}.`;
       comprimentoP.textContent = "";
     }
+
     const relacionamentos = grafoFilmes.encontrarRelacionamentosProximos(
       origem,
       destino
