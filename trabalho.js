@@ -255,8 +255,7 @@ btnBuscar.onclick = function () {
   comprimento.style.display = "block";
   relacionamentos.style.opacity = "1";
   relacionamentos.style.display = "block";
-  relacionamentosBox.style.minHeight = "150px";
-  relacionamentosBox.style.height = "fit-content";
+  relacionamentosBox.style.height = "150px";
   inputGroup.style.height = "550px";
   btnBuscar.style.marginTop = "15px";
 };
