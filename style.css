@@ -90,12 +90,13 @@ input {
   padding: 18px 15px;
 }
 
-#caminho, #comprimento, #relacionamentos {
+#caminho, #comprimento, #relacionamentos, #relacionamentos6 {
   opacity: 0;
   transition: opacity 2s;
   display: none;
   overflow-y: auto;
 }
+
 
 .btn-field button {
   width: 40%;

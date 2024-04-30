@@ -1,4 +1,5 @@
 // Classe Grafo
+// Classe Grafo
 class Grafo {
   constructor() {
     // Utilizamos um Map para armazenar a lista de adjacências.
@@ -83,7 +84,7 @@ class Grafo {
     return null;
   }
 
-  encontrarRelacionamentosProximos(origem, destino) {
+  encontrarRelacionamentosProximos(origem, destino, comprimentoMaximo = Infinity) {
     // Estrutura para armazenar os relacionamentos mais próximos encontrados.
     const relacionamentosProximos = [];
     // Estrutura para armazenar os vértices visitados.
@@ -104,8 +105,8 @@ class Grafo {
       // Pega o último vértice do caminho atual.
       const verticeAtual = caminhoAtual[caminhoAtual.length - 1];
 
-      // Se o comprimento do caminho atual for maior que 6, paramos a busca.
-      if (caminhoAtual.length > 6) {
+      // Se o comprimento do caminho atual for maior que o máximo permitido, paramos a busca.
+      if (caminhoAtual.length > comprimentoMaximo) {
         break;
       }
 
@@ -165,6 +166,7 @@ async function buscarAtores() {
   let caminhoP = document.querySelector("#caminho p");
   let comprimentoP = document.querySelector("#comprimento p");
   let relacionamentosP = document.querySelector("#relacionamentos p");
+  let relacionamentosP6 = document.querySelector("#relacionamentosBox6");
 
   // Obter os nomes dos atores de origem e destino
   let origem = atorOrigemInput.value;
@@ -214,6 +216,20 @@ async function buscarAtores() {
       });
       relacionamentosP.innerHTML = relacionamentosTexto;
     }
+
+    // Exibir relacionamentos próximos com comprimento maior que 6
+    const relacionamentosMaiorQueSeis = relacionamentos.filter(caminho => caminho.length > 6);
+    if (relacionamentosMaiorQueSeis.length > 0) {
+      let relacionamentosTextoMaiorQueSeis =
+        "Relacionamentos com comprimento maior que 6 entre " + origem + " e " + destino + ":<br><br>";
+      relacionamentosMaiorQueSeis.forEach((caminho) => {
+        relacionamentosTextoMaiorQueSeis += caminho.join(" -> ") + "<br><br>";
+      });
+      relacionamentosP6.innerHTML = relacionamentosTextoMaiorQueSeis;
+    } else {
+      relacionamentosP6.innerHTML = "Não foram encontrados relacionamentos com comprimento maior que 6 entre " + origem + " e " + destino + ".";
+    }
+
   } catch (erro) {
     console.error("Erro ao obter os dados JSON:", erro);
     alert(
@@ -233,6 +249,8 @@ let caminho = document.getElementById("caminho");
 let comprimento = document.getElementById("comprimento");
 let relacionamentos = document.getElementById("relacionamentos");
 let relacionamentosBox = document.getElementById("relacionamentosBox");
+let relacionamentos6 = document.getElementById("relacionamentos6");
+let relacionamentosBox6 = document.getElementById("relacionamentosBox6");
 let btnBuscar = document.getElementById("btnBuscar");
 
 btnBuscar.onclick = function () {
@@ -247,7 +265,7 @@ btnBuscar.onclick = function () {
 
   // Se a origem e o destino estiverem preenchidos, execute o código abaixo
   title.innerHTML = "Resultado";
-  formBox.style.height = "800px";
+  formBox.style.height = "1200px";
   formBox.style.maxWidth = "600px";
   caminho.style.opacity = "1";
   caminho.style.display = "block";
@@ -256,6 +274,9 @@ btnBuscar.onclick = function () {
   relacionamentos.style.opacity = "1";
   relacionamentos.style.display = "block";
   relacionamentosBox.style.height = "150px";
+  relacionamentos6.style.opacity = "1";
+  relacionamentos6.style.display = "block";
+  relacionamentosBox6.style.height = "150px";
   inputGroup.style.height = "550px";
   btnBuscar.style.marginTop = "15px";
 };
