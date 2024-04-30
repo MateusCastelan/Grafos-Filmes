@@ -136,6 +136,48 @@ class Grafo {
   }
 }
 
+function popularSelectAtores(dados) {
+  const atorOrigemSelect = document.getElementById("atorOrigem");
+  const atorDestinoSelect = document.getElementById("atorDestino");
+
+  // Iterar sobre cada filme no JSON
+  dados.forEach((filme) => {
+    // Iterar sobre o elenco do filme
+    filme.cast.forEach((ator) => {
+      // Verificar se o ator já foi adicionado como opção
+      if (!atorOrigemSelect.querySelector(`option[value="${ator}"]`)) {
+        // Adicionar o ator como opção para o ator de origem
+        const optionOrigem = document.createElement("option");
+        optionOrigem.value = ator;
+        optionOrigem.textContent = ator;
+        atorOrigemSelect.appendChild(optionOrigem);
+      }
+
+      if (!atorDestinoSelect.querySelector(`option[value="${ator}"]`)) {
+        // Adicionar o ator como opção para o ator de destino
+        const optionDestino = document.createElement("option");
+        optionDestino.value = ator;
+        optionDestino.textContent = ator;
+        atorDestinoSelect.appendChild(optionDestino);
+      }
+    });
+  });
+}
+
+async function obterDadosJSON() {
+  try {
+    const resposta = await fetch("./latest_movies.json");
+    const dadosJSON = await resposta.json();
+    popularSelectAtores(dadosJSON);
+  } catch (erro) {
+    console.error("Erro ao obter os dados JSON:", erro);
+    alert("Ocorreu um erro ao buscar os dados. Por favor, tente novamente mais tarde.");
+  }
+}
+
+// Chamar a função para obter os dados JSON e popular os selects
+obterDadosJSON();
+
 // Função para popular o grafo a partir de dados em formato JSON.
 function popularGrafo(dados) {
   const grafo = new Grafo();
@@ -158,7 +200,6 @@ function popularGrafo(dados) {
   return grafo;
 }
 
-// Função para buscar atores e exibir os resultados na página
 async function buscarAtores() {
   // Obter referências aos elementos HTML
   let atorOrigemInput = document.querySelector("#atorOrigem");
@@ -206,28 +247,32 @@ async function buscarAtores() {
       origem,
       destino
     );
+
+    // Filtrar os relacionamentos com comprimentos menores ou iguais a 6
+    const relacionamentosMenorIgualSeis = relacionamentos.filter(caminho => caminho.length <= 6);
+
+    // Exibir os relacionamentos com comprimentos menores ou iguais a 6
+    if (relacionamentosMenorIgualSeis.length === 0) {
+      relacionamentosP.innerHTML = `<br> Não foram encontrados relacionamentos com comprimentos menores ou iguais a 6 entre ${origem} e ${destino}.`;
+    } else {
+      let relacionamentosTextoMenorIgualSeis =
+        origem + " e " + destino + " com um comprimento máximo de 6 arestas:<br><br>";
+      relacionamentosMenorIgualSeis.forEach((caminho) => {
+        relacionamentosTextoMenorIgualSeis += caminho.join(" -> ") + "<br><br>";
+      });
+      relacionamentosP.innerHTML = relacionamentosTextoMenorIgualSeis;
+    }
+
+    // Exibir todos os relacionamentos em relacionamentos6
     if (relacionamentos.length === 0) {
-      relacionamentosP.innerHTML = `<br> Não foram encontrados relacionamentos próximos entre ${origem} e ${destino} com um comprimento máximo de 6 arestas.`;
+      relacionamentosP6.innerHTML = `Não foram encontrados relacionamentos entre ${origem} e ${destino}.`;
     } else {
       let relacionamentosTexto =
-        origem + " e " + destino + " com um comprimento máximo de 6 arestas:<br><br>";
+        "Todos os relacionamentos entre " + origem + " e " + destino + ":<br><br>";
       relacionamentos.forEach((caminho) => {
         relacionamentosTexto += caminho.join(" -> ") + "<br><br>";
       });
-      relacionamentosP.innerHTML = relacionamentosTexto;
-    }
-
-    // Exibir relacionamentos próximos com comprimento maior que 6
-    const relacionamentosMaiorQueSeis = relacionamentos.filter(caminho => caminho.length > 6);
-    if (relacionamentosMaiorQueSeis.length > 0) {
-      let relacionamentosTextoMaiorQueSeis =
-        "Relacionamentos com comprimento maior que 6 entre " + origem + " e " + destino + ":<br><br>";
-      relacionamentosMaiorQueSeis.forEach((caminho) => {
-        relacionamentosTextoMaiorQueSeis += caminho.join(" -> ") + "<br><br>";
-      });
-      relacionamentosP6.innerHTML = relacionamentosTextoMaiorQueSeis;
-    } else {
-      relacionamentosP6.innerHTML = "Não foram encontrados relacionamentos com comprimento maior que 6 entre " + origem + " e " + destino + ".";
+      relacionamentosP6.innerHTML = relacionamentosTexto;
     }
 
   } catch (erro) {
@@ -265,7 +310,7 @@ btnBuscar.onclick = function () {
 
   // Se a origem e o destino estiverem preenchidos, execute o código abaixo
   title.innerHTML = "Resultado";
-  formBox.style.height = "1200px";
+  formBox.style.height = "800px";
   formBox.style.maxWidth = "600px";
   caminho.style.opacity = "1";
   caminho.style.display = "block";
