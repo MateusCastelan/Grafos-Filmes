@@ -82,7 +82,7 @@ label {
   margin-top: 5px;
 }
 
-input {
+select {
   width: 100%;
   background: transparent;
   border: 0;
@@ -96,7 +96,6 @@ input {
   display: none;
   overflow-y: auto;
 }
-
 
 .btn-field button {
   width: 40%;

@@ -310,8 +310,10 @@ btnBuscar.onclick = function () {
 
   // Se a origem e o destino estiverem preenchidos, execute o código abaixo
   title.innerHTML = "Resultado";
-  formBox.style.height = "800px";
-  formBox.style.maxWidth = "600px";
+  formBox.style.height = "700px";
+  formBox.style.maxWidth = "1200px";
+  formBox.style.overflowY = "auto";
+  inputGroup.style.height = "750px";
   caminho.style.opacity = "1";
   caminho.style.display = "block";
   comprimento.style.opacity = "1";
@@ -322,6 +324,5 @@ btnBuscar.onclick = function () {
   relacionamentos6.style.opacity = "1";
   relacionamentos6.style.display = "block";
   relacionamentosBox6.style.height = "150px";
-  inputGroup.style.height = "550px";
   btnBuscar.style.marginTop = "15px";
 };
