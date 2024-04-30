@@ -61,7 +61,7 @@ class Grafo {
     return null;
   }
 
-  encontrarRelacionamentosProximos(origem, destino) {
+  encontrarRelacionamentosProximos(origem, destino, comprimentoMaximo = Infinity) {
     const relacionamentosProximos = [];
     const visitados = new Set();
     const fila = [[origem]];
@@ -75,7 +75,7 @@ class Grafo {
       const caminhoAtual = fila.shift();
       const verticeAtual = caminhoAtual[caminhoAtual.length - 1];
 
-      if (caminhoAtual.length > 6) {
+      if (caminhoAtual.length > comprimentoMaximo) {
         break;
       }
 
@@ -97,6 +97,42 @@ class Grafo {
     return relacionamentosProximos;
   }
 }
+
+function popularSelectAtores(dados) {
+  const atorOrigemSelect = document.getElementById("atorOrigem");
+  const atorDestinoSelect = document.getElementById("atorDestino");
+
+  dados.forEach((filme) => {
+    filme.cast.forEach((ator) => {
+      if (!atorOrigemSelect.querySelector(`option[value="${ator}"]`)) {
+        const optionOrigem = document.createElement("option");
+        optionOrigem.value = ator;
+        optionOrigem.textContent = ator;
+        atorOrigemSelect.appendChild(optionOrigem);
+      }
+
+      if (!atorDestinoSelect.querySelector(`option[value="${ator}"]`)) {
+        const optionDestino = document.createElement("option");
+        optionDestino.value = ator;
+        optionDestino.textContent = ator;
+        atorDestinoSelect.appendChild(optionDestino);
+      }
+    });
+  });
+}
+
+async function obterDadosJSON() {
+  try {
+    const resposta = await fetch("./latest_movies.json");
+    const dadosJSON = await resposta.json();
+    popularSelectAtores(dadosJSON);
+  } catch (erro) {
+    console.error("Erro ao obter os dados JSON:", erro);
+    alert("Ocorreu um erro ao buscar os dados. Por favor, tente novamente mais tarde.");
+  }
+}
+
+obterDadosJSON();
 
 function popularGrafo(dados) {
   const grafo = new Grafo();
@@ -120,6 +156,7 @@ async function buscarAtores() {
   let caminhoP = document.querySelector("#caminho p");
   let comprimentoP = document.querySelector("#comprimento p");
   let relacionamentosP = document.querySelector("#relacionamentos p");
+  let relacionamentosP6 = document.querySelector("#relacionamentosBox6");
 
   let origem = atorOrigemInput.value;
   let destino = atorDestinoInput.value;
@@ -153,19 +190,31 @@ async function buscarAtores() {
       origem,
       destino
     );
+
+    const relacionamentosMenorIgualSeis = relacionamentos.filter(caminho => caminho.length <= 6);
+
+    if (relacionamentosMenorIgualSeis.length === 0) {
+      relacionamentosP.innerHTML = `<br> Não foram encontrados relacionamentos com comprimentos menores ou iguais a 6 entre ${origem} e ${destino}.`;
+    } else {
+      let relacionamentosTextoMenorIgualSeis =
+        origem + " e " + destino + " com um comprimento máximo de 6 arestas:<br><br>";
+      relacionamentosMenorIgualSeis.forEach((caminho) => {
+        relacionamentosTextoMenorIgualSeis += caminho.join(" -> ") + "<br><br>";
+      });
+      relacionamentosP.innerHTML = relacionamentosTextoMenorIgualSeis;
+    }
+
     if (relacionamentos.length === 0) {
-      relacionamentosP.innerHTML = `<br> Não foram encontrados relacionamentos próximos entre ${origem} e ${destino} com um comprimento máximo de 6 arestas.`;
+      relacionamentosP6.innerHTML = `Não foram encontrados relacionamentos entre ${origem} e ${destino}.`;
     } else {
       let relacionamentosTexto =
-        origem +
-        " e " +
-        destino +
-        " com um comprimento máximo de 6 arestas:<br><br>";
+        "Todos os relacionamentos entre " + origem + " e " + destino + ":<br><br>";
       relacionamentos.forEach((caminho) => {
         relacionamentosTexto += caminho.join(" -> ") + "<br><br>";
       });
-      relacionamentosP.innerHTML = relacionamentosTexto;
+      relacionamentosP6.innerHTML = relacionamentosTexto;
     }
+
   } catch (erro) {
     console.error("Erro ao obter os dados JSON:", erro);
     alert(
@@ -184,6 +233,8 @@ let caminho = document.getElementById("caminho");
 let comprimento = document.getElementById("comprimento");
 let relacionamentos = document.getElementById("relacionamentos");
 let relacionamentosBox = document.getElementById("relacionamentosBox");
+let relacionamentos6 = document.getElementById("relacionamentos6");
+let relacionamentosBox6 = document.getElementById("relacionamentosBox6");
 let btnBuscar = document.getElementById("btnBuscar");
 
 btnBuscar.onclick = function () {
@@ -197,8 +248,10 @@ btnBuscar.onclick = function () {
   }
 
   title.innerHTML = "Resultado";
-  formBox.style.height = "800px";
-  formBox.style.maxWidth = "600px";
+  formBox.style.height = "700px";
+  formBox.style.maxWidth = "1200px";
+  formBox.style.overflowY = "auto";
+  inputGroup.style.height = "750px";
   caminho.style.opacity = "1";
   caminho.style.display = "block";
   comprimento.style.opacity = "1";
@@ -206,6 +259,8 @@ btnBuscar.onclick = function () {
   relacionamentos.style.opacity = "1";
   relacionamentos.style.display = "block";
   relacionamentosBox.style.height = "150px";
-  inputGroup.style.height = "550px";
+  relacionamentos6.style.opacity = "1";
+  relacionamentos6.style.display = "block";
+  relacionamentosBox6.style.height = "150px";
   btnBuscar.style.marginTop = "15px";
 };

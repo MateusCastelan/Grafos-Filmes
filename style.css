@@ -82,7 +82,7 @@ label {
   margin-top: 5px;
 }
 
-input {
+select {
   width: 100%;
   background: transparent;
   border: 0;
@@ -90,7 +90,7 @@ input {
   padding: 18px 15px;
 }
 
-#caminho, #comprimento, #relacionamentos {
+#caminho, #comprimento, #relacionamentos, #relacionamentos6 {
   opacity: 0;
   transition: opacity 2s;
   display: none;
