@@ -94,6 +94,7 @@ input {
   opacity: 0;
   transition: opacity 2s;
   display: none;
+  overflow-y: auto;
 }
 
 .btn-field button {
