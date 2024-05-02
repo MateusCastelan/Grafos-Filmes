@@ -99,9 +99,9 @@ class Grafo {
       const verticeAtual = caminhoAtual[caminhoAtual.length - 1];
 
       // Se o vértice atual for o destino e o comprimento do caminho atual for menor que o menor comprimento encontrado até agora.
-      if (verticeAtual === destino && caminhoAtual.length < menorComprimento) {
+      if (verticeAtual === destino && caminhoAtual.length - 1 < menorComprimento) {
         menorCaminho = caminhoAtual; // Armazena o menor caminho.
-        menorComprimento = caminhoAtual.length; // Atualiza o menor comprimento.
+        menorComprimento = caminhoAtual.length - 1; // Atualiza o menor comprimento.
       }
 
       // Se o vértice atual não foi visitado.
@@ -294,7 +294,7 @@ async function buscarAtores() {
     );
 
     // Filtrar os relacionamentos com comprimentos menores ou iguais a 6
-    const relacionamentosMenorIgualSeis = relacionamentos.filter(caminho => caminho.length <= 6);
+    const relacionamentosMenorIgualSeis = relacionamentos.filter(caminho => caminho.length <= 7);
 
     // Exibir os relacionamentos com comprimentos menores ou iguais a 6
     if (relacionamentosMenorIgualSeis.length === 0) {
